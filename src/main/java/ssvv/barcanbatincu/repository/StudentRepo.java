@@ -23,4 +23,8 @@ public class StudentRepo {
     public void addStudent(Student student) {
         studentList.add(student);
     }
+
+    public String getStudents() {
+        return studentList.toString();
+    }
 }

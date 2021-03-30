@@ -1,5 +1,6 @@
 package ssvv.barcanbatincu.controller;
 
+import ssvv.barcanbatincu.domain.Student;
 import ssvv.barcanbatincu.repository.StudentRepo;
 
 public class StudentController {
@@ -17,7 +18,11 @@ public class StudentController {
         return studentRepo;
     }
 
-    public void addStudent() {
+    public void addStudent(long id, String name, String group) {
+        studentRepo.addStudent(new Student(id, name, group));
+    }
 
+    public String getStudents() {
+        return studentRepo.getStudents();
     }
 }
