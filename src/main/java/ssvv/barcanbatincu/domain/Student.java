@@ -1,27 +1,35 @@
 package ssvv.barcanbatincu.domain;
 
-public class Student {
-    private long id;
+public class Student implements HasId<String>{
+    private String id;
     private String name;
-    private String group;
+    private int group;
+    private String email;
+    private String professor;
 
     public Student() {
-        this.id = -1;
+        this.id = "";
         this.name = "";
-        this.group = "";
+        int group = -1;
+        this.email = "";
+        this.professor = "";
     }
 
-    public Student(long id, String name, String group) {
+    public Student(String id, String name, int group, String email, String professor) {
         this.id = id;
         this.name = name;
         this.group = group;
+        this.email = email;
+        this.professor = professor;
     }
 
-    public long getId() {
+    @Override
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    @Override
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -33,20 +41,38 @@ public class Student {
         this.name = name;
     }
 
-    public String getGroup() {
+    public int getGroup() {
         return group;
     }
 
-    public void setGroup(String group) {
+    public void setGroup(int group) {
         this.group = group;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(String professor) {
+        this.professor = professor;
     }
 
     @Override
     public String toString() {
         return "Student{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", name='" + name + '\'' +
-                ", group='" + group + '\'' +
+                ", group=" + group +
+                ", email='" + email + '\'' +
+                ", professor='" + professor + '\'' +
                 '}';
     }
 }

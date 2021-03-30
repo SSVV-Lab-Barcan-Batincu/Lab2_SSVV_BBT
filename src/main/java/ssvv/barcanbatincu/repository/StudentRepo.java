@@ -1,36 +1,10 @@
 package ssvv.barcanbatincu.repository;
 
 import ssvv.barcanbatincu.domain.Student;
+import ssvv.barcanbatincu.validator.IValidator;
+import ssvv.barcanbatincu.repository.AbstractCrudRepo;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
-public class StudentRepo {
-    private List<Student> studentList;
-
-    public StudentRepo() {
-        studentList = new ArrayList<>();
-    }
-
-    public StudentRepo(List<Student> newList) {
-        studentList = newList;
-    }
-
-    public List<Student> getStudentList() {
-        return studentList;
-    }
-
-    public void addStudent(Student student) {
-        studentList.add(student);
-    }
-
-    public String getStudents() {
-        return studentList.toString();
-    }
-
-    public boolean checkIfStudentExist(final Student student) {
-        List<Student> if_found = studentList.stream().filter(item -> item.getId() == student.getId()).collect(Collectors.toList());
-        return if_found.size() == 1;
+public class StudentRepo extends AbstractCrudRepo<String, Student> {
+    public StudentRepo(IValidator<Student> v){ super(v);
     }
 }

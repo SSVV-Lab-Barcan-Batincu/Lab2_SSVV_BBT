@@ -1,31 +1,26 @@
 package ssvv.barcanbatincu.controller;
 
 import ssvv.barcanbatincu.domain.Student;
+import ssvv.barcanbatincu.exceptions.ValidatorException;
 import ssvv.barcanbatincu.repository.StudentRepo;
+import ssvv.barcanbatincu.validator.StudentValidator;
 
 public class StudentController {
     private StudentRepo studentRepo;
+    private StudentValidator studentValidator;
 
     public StudentController() {
-        studentRepo = new StudentRepo();
-    }
-
-    public StudentController(StudentRepo newRepo) {
-        studentRepo = new StudentRepo(newRepo.getStudentList());
+        studentValidator = new StudentValidator();
+        studentRepo = new StudentRepo(studentValidator);
     }
 
     public StudentRepo getStudentRepo() {
         return studentRepo;
     }
 
-    public void addStudent(long id, String name, String group) {
-        Student student = new Student(id, name, group);
-        if (!studentRepo.checkIfStudentExist(student))
-            studentRepo.addStudent(student);
-        else System.out.println("Student already exists");
-    }
-
-    public String getStudents() {
-        return studentRepo.getStudents();
+    public void addStudent(String id, String name, int group, String email, String professor) throws ValidatorException {
+        Student student = new Student(id, name, group, email, professor);
+        studentRepo.save(student);
+        System.out.println("Student added with success");
     }
 }

@@ -20,15 +20,13 @@ public class UI {
 
     private void addStudent() throws Exception {
         Scanner input = new Scanner(System.in);
-        long id = input.nextLong();
-        input.nextLine();
+        String id = input.nextLine();
         String name = input.nextLine();
-        String group = input.nextLine();
-        studentController.addStudent(id, name, group);
-    }
-
-    private String getStudents() throws Exception {
-        return studentController.getStudents();
+        int group = input.nextInt();
+        input.nextLine();
+        String email = input.nextLine();
+        String professor = input.nextLine();
+        studentController.addStudent(id, name, group, email, professor);
     }
 
     public void menu() {
@@ -45,7 +43,6 @@ public class UI {
                         this.addStudent();
                         break;
                     case 2:
-                        System.out.println(this.getStudents());
                         break;
                     case 0:
                         ok = false;

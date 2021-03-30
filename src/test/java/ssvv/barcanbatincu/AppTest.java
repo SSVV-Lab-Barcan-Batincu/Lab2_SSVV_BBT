@@ -5,7 +5,9 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import ssvv.barcanbatincu.controller.StudentController;
 import ssvv.barcanbatincu.domain.Student;
+import ssvv.barcanbatincu.exceptions.ValidatorException;
 import ssvv.barcanbatincu.repository.StudentRepo;
+import ssvv.barcanbatincu.validator.StudentValidator;
 
 /**
  * Unit test for simple App.
@@ -23,19 +25,67 @@ public class AppTest
 
     @Test
     public void addStudentTest1() {
-        StudentRepo studentRepo = new StudentRepo();
-        studentRepo.addStudent(new Student(1234,"abc", "333"));
-        assert !studentRepo.getStudentList().isEmpty();
-        assert studentRepo.getStudentList().get(0).getId() == 1234;
-        assert studentRepo.getStudentList().get(0).getName().equals("abc");
-        assert !studentRepo.getStudentList().get(0).getName().equals("333");
+        StudentController studentController = new StudentController();
+        try {
+            studentController.addStudent("1234","abc", 333, "loranz@loranz", "loranz");
+            assert studentController.getStudentRepo().size() == 1;
+        } catch (ValidatorException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
     public void addStudentTest2() {
         StudentController studentController = new StudentController();
-        studentController.addStudent(1234,"abc", "333");
-        studentController.addStudent(1234,"abcd", "3334");
-        assert studentController.getStudentRepo().getStudentList().size() == 1;
+        try {
+            studentController.addStudent("", "", -1, "", "");
+            assert studentController.getStudentRepo().size() == 0;
+        } catch (ValidatorException e) {
+            assert e.toString().equals("Id invalid\n" +
+                    "Nume invalid\n" +
+                    "Grupa invalid\n" +
+                    "Email invalid\n" +
+                    "Professor invalid");
+            e.printStackTrace();
+        }
+
+    }
+
+    @Test
+    public void addStudentTest3() {
+        StudentController studentController = new StudentController();
+        try {
+            studentController.addStudent("1234", null, 0, null, null);
+            assert studentController.getStudentRepo().size() == 0;
+        } catch (ValidatorException e) {
+            assert e.toString().equals("Nume invalid\n" +
+                    "Grupa invalid\n" +
+                    "Email invalid\n" +
+                    "Professor invalid");
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void addStudentTest4() {
+        StudentController studentController = new StudentController();
+        try {
+            studentController.addStudent("1234", "null", Integer.MAX_VALUE - 1, "null", "null");
+            assert studentController.getStudentRepo().size() == 1;
+        } catch (ValidatorException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Test
+    public void addStudentTest5() {
+        StudentController studentController = new StudentController();
+        try {
+            studentController.addStudent("1234", "null", Integer.MAX_VALUE, "null", "null");
+            assert studentController.getStudentRepo().size() == 1;
+        } catch (ValidatorException e) {
+            e.printStackTrace();
+        }
     }
 }
