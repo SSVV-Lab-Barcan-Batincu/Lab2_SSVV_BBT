@@ -41,11 +41,11 @@ public class AppTest
             studentController.addStudent("", "", -1, "", "");
             assert studentController.getStudentRepo().size() == 0;
         } catch (ValidatorException e) {
-            assert e.toString().equals("Id invalid\n" +
+            assert e.toString().equals("ssvv.barcanbatincu.exceptions.ValidatorException: Id invalid\n" +
                     "Nume invalid\n" +
                     "Grupa invalid\n" +
                     "Email invalid\n" +
-                    "Professor invalid");
+                    "Professor invalid\n");
             e.printStackTrace();
         }
 
@@ -58,10 +58,10 @@ public class AppTest
             studentController.addStudent("1234", null, 0, null, null);
             assert studentController.getStudentRepo().size() == 0;
         } catch (ValidatorException e) {
-            assert e.toString().equals("Nume invalid\n" +
+            assert e.toString().equals("ssvv.barcanbatincu.exceptions.ValidatorException: Nume invalid\n" +
                     "Grupa invalid\n" +
                     "Email invalid\n" +
-                    "Professor invalid");
+                    "Professor invalid\n");
             e.printStackTrace();
         }
     }
