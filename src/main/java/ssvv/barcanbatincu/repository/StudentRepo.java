@@ -4,6 +4,7 @@ import ssvv.barcanbatincu.domain.Student;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class StudentRepo {
     private List<Student> studentList;
@@ -26,5 +27,10 @@ public class StudentRepo {
 
     public String getStudents() {
         return studentList.toString();
+    }
+
+    public boolean checkIfStudentExist(final Student student) {
+        List<Student> if_found = studentList.stream().filter(item -> item.getId() == student.getId()).collect(Collectors.toList());
+        return if_found.size() == 1;
     }
 }

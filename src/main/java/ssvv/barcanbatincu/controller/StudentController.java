@@ -19,7 +19,10 @@ public class StudentController {
     }
 
     public void addStudent(long id, String name, String group) {
-        studentRepo.addStudent(new Student(id, name, group));
+        Student student = new Student(id, name, group);
+        if (!studentRepo.checkIfStudentExist(student))
+            studentRepo.addStudent(student);
+        else System.out.println("Student already exists");
     }
 
     public String getStudents() {
